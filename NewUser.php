@@ -25,14 +25,11 @@ if (isset($_POST['submit'])) {
 
     if ($submitStatus) {   //Add user then redirect
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT INTO User (Username, Password) VALUES( :username, :hashedPassword)";
+        $sql = "INSERT INTO User (Username, Password) VALUES( '" . $username . "', '" . $password . "')";
 
         $pdoSafeSearch = $myPdo->prepare($sql);
 
-        echo("<script>console.log('Hash: " . $hashedPassword . "');</script>");
-
-        //TODO:  Fix issue where using hashed password doesn't register user in db
-        if ($pdoSafeSearch->execute([':username' => $username, ':hashedPassword' => $password])) {
+        if ($pdoSafeSearch->execute()) {
             $_SESSION['loggedIn'] = $username;
             $_SESSION["signedIn"] = true;
             $_SESSION["loginStatus"] = "Log Out";

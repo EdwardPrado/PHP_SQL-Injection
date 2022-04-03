@@ -22,10 +22,10 @@ if (isset($_POST['submit'])) {
 
     $pdo = getPDO();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "SELECT Id, Password FROM User WHERE Username = :username AND Password = :password";
+    $sql = "SELECT Id, Password FROM User WHERE Username = '" . $username . "' AND Password = '" . $password . "'";
 
     $pdoSafeSearch = $pdo->prepare($sql);
-    $pdoSafeSearch->execute([':username' => $username, ':password' => $password]);
+    $pdoSafeSearch->execute();
     $user = $pdoSafeSearch->fetch();
 
     //if entered password matches unhashed db password

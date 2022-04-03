@@ -20,13 +20,9 @@ if (isset($_POST["submit"])) {
 
     $pdo = getPDO();
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO bank_card (Id, Name, Card_Number, Expiration_Date, Security_Code, Bank, Owner) VALUES( :userId, :name, :cardNumber, :expirationDate, :securityCode, :bank, :owner)";
-
+    $sql = "INSERT INTO bank_card (Id, Name, Card_Number, Expiration_Date, Security_Code, Bank, Owner) VALUES( " . $_SESSION["userID"] . ", '" . $name . "', " . (int) $cardNumber . ", '" . $expirationDate . "', " . (int) $securityCode . ", '" . $bank . "', '" . $_SESSION["username"] . "')";
     $pdoSafeSearch = $myPdo->prepare($sql);
-
-    if ($pdoSafeSearch->execute([':userId' => $_SESSION["userID"], ':name' => $name, ':cardNumber' => (int) $cardNumber, ':expirationDate' => $expirationDate, ':securityCode' => (int) $securityCode, ':bank' => $bank, ':owner' => $_SESSION["username"]])) {
-        echo("<script>console.log('Success');</script>");
-    }
+    $pdoSafeSearch->execute();
 }
 ?>
 
