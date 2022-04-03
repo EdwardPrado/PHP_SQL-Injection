@@ -43,10 +43,10 @@ class bankCardInstance {
                     <?php
                     $pdo = getPDO();
                     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $sql = "SELECT * FROM bank_card WHERE Id = :userID";
+                     $sql = "SELECT * FROM bank_card WHERE Owner = :owner";
 
                     $pdoSafeSearch = $pdo->prepare($sql);
-                    $pdoSafeSearch->execute([':userID' => $_SESSION["userID"]]);
+                    $pdoSafeSearch->execute([':owner' => $_SESSION["username"]]);
                     $bankCardResults = $pdoSafeSearch->fetchAll();
 
                     $bankCardsArray = array();
