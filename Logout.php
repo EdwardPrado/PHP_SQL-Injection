@@ -9,6 +9,11 @@
         <?php include 'Common/Header.php'; ?>
         <div class="php-container">
             <h1>Logout</h1>
+            <?php
+            session_destroy();
+            header('Location: Index.php');
+            exit;
+            ?>
         </div>
         <?php include 'Common/Footer.php'; ?>
     </body>
